@@ -12,7 +12,7 @@ interface Props {
 }
 
 const IPFSRouterProvider = ({ children }: Props) => {
-  const [currentPath, setCurrentPath] = useState('/');
+  const [currentPath, setCurrentPath] = useState('/mint');
 
   return (
     <RouterProviderContext.Provider value={{ currentPath, setCurrentPath }}>

@@ -8,6 +8,7 @@ import Layout from 'components/Layout';
 import MobileMenu from 'components/MobileMenu';
 
 import Providers from './App.Providers';
+import MintPage from 'pages/MintPage';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
 
         <IPFSRoute path="/" component={<LandingPage />} />
         <IPFSRoute path="/community" component={<CommunityPage />} />
+        <IPFSRoute path="/mint" component={<MintPage />} />
 
         <Footer />
       </Layout>
