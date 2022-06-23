@@ -1,37 +1,8 @@
-import { MetamaskProvider } from 'context/Metamask.context';
-import { ethers, providers } from 'ethers';
 import { useEffect, useState } from 'react';
 
-type Web3Provider = providers.Web3Provider;
-
-const getAddresses = async (provider?: Web3Provider) => {
-  try {
-    const accounts = await provider?.listAccounts();
-
-    return accounts;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const getMetamask = () => {
-  try {
-    if (!window.ethereum) {
-      throw new Error('No crypto wallet found!');
-    }
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-    return provider;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const ellipsisAccount = (account: string) => {
-  if (!account) return '';
-
-  return `${account.slice(0,5)}...${account.slice(account.length-4)}`
-}
+import { ellipsisAccount, getAddresses, getMetamask } from './MintPage.helpers';
+import type { Web3Provider } from './MintPage.helpers';
+import * as S from './MintPage.styles';
 
 const MintPage = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -61,7 +32,7 @@ const MintPage = () => {
 
       if (addresses?.length) {
         setIsConnected(true);
-        setAccountAddress(addresses[0])
+        setAccountAddress(addresses[0]);
       }
     };
 
@@ -69,15 +40,15 @@ const MintPage = () => {
   }, [provider]);
 
   return (
-    <MetamaskProvider>
-      <button
+    <S.Content>
+      <S.Button
         onClick={() => {
           !isConnected && provider && connectToWallet(provider);
         }}
       >
         {isConnected && accountAddress ? ellipsisAccount(accountAddress) : 'Connect to MetaMask'}
-      </button>
-    </MetamaskProvider>
+      </S.Button>
+    </S.Content>
   );
 };
 
